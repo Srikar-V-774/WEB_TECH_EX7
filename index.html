@@ -1,0 +1,1704 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORM & FUNCTION — Interactive Studio</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --blue: #244de8;
+    --blue-dark: #1736b5;
+    --yellow: #eaff52;
+    --paper: #f4f5f8;
+    --white: #ffffff;
+    --ink: #151a2a;
+    --muted: #858b9b;
+    --line: #e7e9ef;
+    --green: #24a878;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    height: 76px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -1.2px;
+}
+
+.logo span {
+    color: var(--blue);
+}
+
+.logo-mark {
+    display: inline-flex;
+    width: 25px;
+    height: 25px;
+    background: var(--blue);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: 11px;
+    font-weight: 700;
+    color: #777e90;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--blue);
+}
+
+.nav-status {
+    background: #edf0ff;
+    color: var(--blue);
+    padding: 9px 13px;
+    border-radius: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+}
+
+/* HERO */
+
+.hero {
+    background: var(--blue);
+    color: white;
+    padding: 100px 9% 95px;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 8vw, 100px);
+    font-weight: 900;
+    letter-spacing: -7px;
+    line-height: 0.94;
+}
+
+.hero h1 span {
+    color: var(--yellow);
+}
+
+.hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.9;
+    max-width: 470px;
+    margin-top: 28px;
+}
+
+.hero-button {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 16px 23px;
+    margin-top: 32px;
+    font-size: 11px;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+.hero-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.hero-shape {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    right: 7%;
+    top: 30px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
+.hero-shape::before {
+    content: "";
+    position: absolute;
+    inset: 40px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
+.hero-shape::after {
+    content: "01";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.10);
+}
+
+/* INTRO STRIP */
+
+.info-strip {
+    background: var(--yellow);
+    padding: 17px 7%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* MAIN */
+
+.container {
+    max-width: 1150px;
+    width: 88%;
+    margin: auto;
+}
+
+.section-intro {
+    padding: 90px 0 40px;
+}
+
+.eyebrow {
+    color: var(--blue);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.section-intro h2 {
+    font-size: clamp(35px, 5vw, 57px);
+    letter-spacing: -3px;
+    line-height: 1.05;
+}
+
+.section-intro h2 span {
+    color: var(--blue);
+}
+
+.section-intro p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 500px;
+    margin-top: 16px;
+}
+
+/* COMMON WORKSHOP */
+
+.workshop {
+    background: white;
+    border: 1px solid var(--line);
+    margin: 30px 0 75px;
+    box-shadow: 0 15px 50px rgba(22,31,64,0.045);
+}
+
+.workshop-header {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+}
+
+.workshop-heading {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.workshop-number {
+    width: 42px;
+    height: 42px;
+    background: var(--blue);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+}
+
+.workshop-heading h3 {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.workshop-heading p {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.live-tag {
+    color: var(--green);
+    background: #e9f8f1;
+    padding: 8px 11px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+}
+
+/* BUDGET */
+
+.budget-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.budget-input {
+    padding: 35px;
+    border-right: 1px solid var(--line);
+}
+
+.field-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    margin-bottom: 9px;
+    text-transform: uppercase;
+}
+
+.money-input {
+    width: 100%;
+    padding: 17px;
+    border: 1px solid var(--line);
+    outline: none;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 25px;
+    transition: 0.2s;
+}
+
+.money-input:focus,
+.form-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(36,77,232,0.08);
+}
+
+.percentage-row {
+    margin-bottom: 20px;
+}
+
+.percentage-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.percentage-top span:last-child {
+    color: var(--blue);
+    font-family: 'Space Mono', monospace;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    outline: none;
+    background: white;
+    font-size: 13px;
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    background: var(--blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    transition: 0.25s;
+}
+
+.calculate-btn:hover {
+    background: var(--blue-dark);
+}
+
+.budget-result {
+    padding: 35px;
+    background: #f8f9fc;
+}
+
+.result-heading {
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+.total-box {
+    background: var(--ink);
+    color: white;
+    padding: 23px;
+    margin-bottom: 25px;
+}
+
+.total-box small {
+    display: block;
+    color: #aab0c1;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    margin-bottom: 10px;
+}
+
+.total-box strong {
+    font-size: 35px;
+    letter-spacing: -1px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    padding: 15px 0;
+    font-size: 12px;
+}
+
+.result-item span {
+    color: var(--muted);
+}
+
+.result-item strong {
+    font-size: 13px;
+}
+
+.result-item:last-child {
+    border: none;
+}
+
+.result-placeholder {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 25px;
+}
+
+/* CAKE */
+
+.cake-layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+}
+
+.cake-visual {
+    background: #f0edff;
+    padding: 40px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 440px;
+}
+
+.cake-stage {
+    width: 240px;
+    height: 245px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.cake-top {
+    width: 190px;
+    height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    top: 55px;
+    z-index: 3;
+    background: #ffb8c6;
+    border: 4px solid #ed9bad;
+}
+
+.cake-body {
+    width: 190px;
+    height: 115px;
+    position: absolute;
+    top: 90px;
+    z-index: 2;
+    background: linear-gradient(90deg, #e995a9, #ffc4d0, #e995a9);
+    border-radius: 0 0 12px 12px;
+}
+
+.cake-icing {
+    position: absolute;
+    width: 190px;
+    height: 38px;
+    top: 87px;
+    z-index: 4;
+    border-radius: 50%;
+    background: #fff1ed;
+}
+
+.cake-icing::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 16px;
+    height: 25px;
+    border-radius: 0 0 12px 12px;
+    background: #fff1ed;
+    box-shadow: 36px 4px #fff1ed, 75px 0 #fff1ed, 112px 3px #fff1ed;
+}
+
+.cake-decoration {
+    position: absolute;
+    z-index: 5;
+    top: 60px;
+    color: #ed603b;
+    font-size: 22px;
+    letter-spacing: 15px;
+    left: 83px;
+}
+
+.cake-base {
+    position: absolute;
+    bottom: 5px;
+    width: 230px;
+    height: 20px;
+    background: #d1c9e9;
+    border-radius: 50%;
+}
+
+.cake-caption {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: #77708d;
+    letter-spacing: 1px;
+    margin-top: 15px;
+}
+
+.cake-form {
+    padding: 35px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: white;
+    padding: 13px;
+    outline: none;
+    font-size: 12px;
+    color: var(--ink);
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: var(--blue);
+}
+
+.check-option {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 12px 0;
+    font-size: 12px;
+    color: #626a7a;
+}
+
+.check-option input {
+    accent-color: var(--blue);
+    width: 15px;
+    height: 15px;
+}
+
+.cake-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 5px;
+    border-top: 1px solid var(--line);
+}
+
+.cake-total span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.cake-total strong {
+    font-size: 28px;
+    color: var(--blue);
+}
+
+.order-btn {
+    width: 100%;
+    background: var(--ink);
+    color: white;
+    padding: 16px;
+    border: none;
+    font-size: 11px;
+    font-weight: 900;
+    margin-top: 18px;
+    transition: 0.25s;
+}
+
+.order-btn:hover {
+    background: var(--blue);
+}
+
+/* CAR WORKSHOP */
+
+.car-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+}
+
+.car-preview {
+    background: #eaf0fa;
+    padding: 40px 25px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.car-scene {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.car-scene svg {
+    width: 100%;
+    max-width: 540px;
+    height: auto;
+    overflow: visible;
+}
+
+.car-body-part {
+    fill: #244de8;
+    transition: fill 0.35s;
+}
+
+.car-glass {
+    fill: #b9e6f3;
+    transition: fill 0.35s;
+}
+
+.tyre-outer {
+    fill: #252a34;
+    transition: r 0.35s;
+}
+
+.tyre-inner {
+    fill: #b9bec9;
+    transition: r 0.35s;
+}
+
+.car-preview-caption {
+    text-align: center;
+    color: #737f96;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+
+.car-controls {
+    padding: 35px;
+}
+
+.car-control-group {
+    margin-bottom: 30px;
+}
+
+.car-control-group h4 {
+    font-size: 11px;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.color-swatch {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3px solid white;
+    outline: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.color-swatch:hover,
+.color-swatch.active {
+    outline-color: var(--blue);
+    transform: scale(1.1);
+}
+
+.tint-options {
+    display: flex;
+    gap: 8px;
+}
+
+.tint-btn,
+.tyre-btn {
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    background: white;
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.tint-btn.active,
+.tyre-btn.active {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+}
+
+.car-summary {
+    padding: 15px;
+    background: #f3f5fa;
+    font-size: 11px;
+    line-height: 2;
+    color: #646c7c;
+}
+
+.car-summary strong {
+    color: var(--ink);
+}
+
+/* FOOTER */
+
+.footer {
+    background: var(--ink);
+    color: white;
+    padding: 55px 7%;
+    margin-top: 100px;
+}
+
+.footer-content {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.footer h2 {
+    font-size: 25px;
+    letter-spacing: -1px;
+}
+
+.footer h2 span {
+    color: var(--yellow);
+}
+
+.footer p {
+    color: #9299a9;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    line-height: 2;
+    text-align: right;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 800px) {
+    .hero {
+        padding: 85px 7%;
+    }
+
+    .hero-shape {
+        right: -230px;
+        opacity: 0.6;
+    }
+
+    .budget-layout,
+    .cake-layout,
+    .car-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .budget-input {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .workshop-header {
+        padding: 20px;
+    }
+
+    .budget-input,
+    .budget-result,
+    .cake-form,
+    .car-controls {
+        padding: 25px;
+    }
+}
+
+@media(max-width: 520px) {
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 9px;
+    }
+
+    .nav-status {
+        display: none;
+    }
+
+    .hero h1 {
+        letter-spacing: -4px;
+    }
+
+    .container {
+        width: 92%;
+    }
+
+    .section-intro {
+        padding-top: 65px;
+    }
+
+    .workshop-heading h3 {
+        font-size: 14px;
+    }
+
+    .live-tag {
+        display: none;
+    }
+
+    .footer-content {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .footer p {
+        text-align: left;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+    <a href="#" class="logo">
+        <span class="logo-mark">F</span>FORM<span>&</span>FUNCTION
+    </a>
+
+    <div class="nav-links">
+        <a href="#budget">BUDGET</a>
+        <a href="#cake">CAKE</a>
+        <a href="#car">CAR STUDIO</a>
+    </div>
+
+    <div class="nav-status">JQUERY / ACTIVE</div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-label">INTERACTIVE WEB EXPERIENCES / NO. 007</div>
+
+        <h1>
+            Make it<br>
+            <span>work.</span>
+        </h1>
+
+        <p>
+            Three interactive experiences. One powerful library.
+            Discover how jQuery makes calculations, event handling
+            and dynamic webpage manipulation effortless.
+        </p>
+
+        <a href="#budget" class="hero-button">EXPLORE THE STUDIO ↗</a>
+
+    </div>
+
+    <div class="hero-shape"></div>
+
+</section>
+
+
+<!-- INFO STRIP -->
+
+<div class="info-strip">
+    <span>01 / BUDGET PLANNER</span>
+    <span>02 / CAKE ORDERING</span>
+    <span>03 / AUTOMOTIVE CUSTOMIZATION</span>
+    <span>POWERED BY JQUERY</span>
+</div>
+
+
+<main class="container">
+
+    <!-- INTRO -->
+
+    <section class="section-intro">
+        <div class="eyebrow">THE INTERACTIVE COLLECTION</div>
+
+        <h2>
+            Three ideas.<br>
+            <span>Infinite possibilities.</span>
+        </h2>
+
+        <p>
+            Select an experience below. Change values, make choices
+            and watch the interface respond instantly through jQuery.
+        </p>
+    </section>
+
+
+    <!-- QUESTION 1: BUDGET CALCULATOR -->
+
+    <section id="budget">
+
+        <div class="workshop">
+
+            <div class="workshop-header">
+
+                <div class="workshop-heading">
+                    <div class="workshop-number">01</div>
+
+                    <div>
+                        <h3>Personal Budget Planner</h3>
+                        <p>Divide your money. Plan your future.</p>
+                    </div>
+                </div>
+
+                <div class="live-tag">● LIVE CALCULATOR</div>
+
+            </div>
+
+
+            <div class="budget-layout">
+
+                <div class="budget-input">
+
+                    <label class="field-label" for="totalAmount">
+                        Total Available Amount (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="totalAmount"
+                        class="money-input"
+                        placeholder="Enter amount"
+                        min="1"
+                    >
+
+                    <div class="percentage-row">
+                        <div class="percentage-top">
+                            <label for="rentPercent">Room Rent</label>
+                            <span id="rentLabel">30%</span>
+                        </div>
+
+                        <input type="number" class="form-input"
+                            id="rentPercent" value="30" min="0" max="100">
+                    </div>
+
+                    <div class="percentage-row">
+                        <div class="percentage-top">
+                            <label for="accessPercent">Accessories</label>
+                            <span id="accessLabel">20%</span>
+                        </div>
+
+                        <input type="number" class="form-input"
+                            id="accessPercent" value="20" min="0" max="100">
+                    </div>
+
+                    <div class="percentage-row">
+                        <div class="percentage-top">
+                            <label for="emergencyPercent">Emergency</label>
+                            <span id="emergencyLabel">10%</span>
+                        </div>
+
+                        <input type="number" class="form-input"
+                            id="emergencyPercent" value="10" min="0" max="100">
+                    </div>
+
+                    <div class="percentage-row">
+                        <div class="percentage-top">
+                            <label for="savingPercent">Savings</label>
+                            <span id="savingLabel">40%</span>
+                        </div>
+
+                        <input type="number" class="form-input"
+                            id="savingPercent" value="40" min="0" max="100">
+                    </div>
+
+                    <button class="calculate-btn" id="evaluateBudget">
+                        EVALUATE MY MONEY ↗
+                    </button>
+
+                </div>
+
+
+                <div class="budget-result">
+
+                    <div class="result-heading">YOUR FINANCIAL BREAKDOWN</div>
+
+                    <div class="total-box">
+                        <small>TOTAL AVAILABLE BALANCE</small>
+                        <strong id="budgetTotal">₹0.00</strong>
+                    </div>
+
+                    <div id="budgetResults">
+
+                        <div class="result-placeholder">
+                            Your calculated budget will appear here.
+                            Enter your amount and percentages, then
+                            click Evaluate My Money.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUESTION 2: CAKE ORDER -->
+
+    <section id="cake">
+
+        <div class="section-intro">
+            <div class="eyebrow">THE SWEET COLLECTION / 02</div>
+
+            <h2>
+                A little more<br>
+                <span>celebration.</span>
+            </h2>
+
+            <p>
+                Design your cake, select your preferences and
+                calculate the final order price instantly.
+            </p>
+        </div>
+
+
+        <div class="workshop">
+
+            <div class="workshop-header">
+
+                <div class="workshop-heading">
+                    <div class="workshop-number">02</div>
+
+                    <div>
+                        <h3>The Cake Atelier</h3>
+                        <p>Made to order. Made to celebrate.</p>
+                    </div>
+                </div>
+
+                <div class="live-tag">● ORDER STUDIO</div>
+
+            </div>
+
+
+            <div class="cake-layout">
+
+                <div class="cake-visual">
+
+                    <div class="cake-stage">
+
+                        <div class="cake-top"></div>
+                        <div class="cake-body" id="cakeBody"></div>
+                        <div class="cake-icing"></div>
+                        <div class="cake-decoration">✦ ✦ ✦</div>
+                        <div class="cake-base"></div>
+
+                    </div>
+
+                    <div class="cake-caption">
+                        YOUR CUSTOM CAKE / PREVIEW
+                    </div>
+
+                </div>
+
+
+                <div class="cake-form">
+
+                    <div class="form-group">
+                        <label for="cakeSize">Cake Size</label>
+
+                        <select id="cakeSize">
+                            <option value="500">Small — ₹500</option>
+                            <option value="900" selected>Medium — ₹900</option>
+                            <option value="1400">Large — ₹1,400</option>
+                            <option value="2000">Extra Large — ₹2,000</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cakeFlavor">Choose Your Flavour</label>
+
+                        <select id="cakeFlavor">
+                            <option value="0">Vanilla — Included</option>
+                            <option value="100">Chocolate — +₹100</option>
+                            <option value="150">Red Velvet — +₹150</option>
+                            <option value="200">Black Forest — +₹200</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cakeQuantity">Quantity</label>
+
+                        <input type="number" id="cakeQuantity"
+                            min="1" max="20" value="1">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Additional Decorations</label>
+
+                        <label class="check-option">
+                            <input type="checkbox" class="cakeExtra" value="100">
+                            Premium icing (+₹100)
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" class="cakeExtra" value="150">
+                            Custom message (+₹150)
+                        </label>
+
+                        <label class="check-option">
+                            <input type="checkbox" class="cakeExtra" value="200">
+                            Decorative toppers (+₹200)
+                        </label>
+                    </div>
+
+
+                    <div class="cake-total">
+                        <span>ESTIMATED TOTAL</span>
+                        <strong id="cakeTotal">₹900</strong>
+                    </div>
+
+                    <button class="order-btn" id="placeOrder">
+                        CONFIRM CAKE ORDER ↗
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUESTION 3: CAR WORKSHOP -->
+
+    <section id="car">
+
+        <div class="section-intro">
+            <div class="eyebrow">THE AUTOMOTIVE COLLECTION / 03</div>
+
+            <h2>
+                Built around<br>
+                <span>your style.</span>
+            </h2>
+
+            <p>
+                Create your own custom look. Change the body colour,
+                glass tint and tyre size using interactive jQuery controls.
+            </p>
+        </div>
+
+
+        <div class="workshop">
+
+            <div class="workshop-header">
+
+                <div class="workshop-heading">
+                    <div class="workshop-number">03</div>
+
+                    <div>
+                        <h3>Automotive Customization Studio</h3>
+                        <p>Your car. Your choices. Your design.</p>
+                    </div>
+                </div>
+
+                <div class="live-tag">● DESIGN MODE</div>
+
+            </div>
+
+
+            <div class="car-layout">
+
+                <div class="car-preview">
+
+                    <div class="car-scene">
+
+                        <svg viewBox="0 0 600 300"
+                             xmlns="http://www.w3.org/2000/svg"
+                             aria-label="Customizable car illustration">
+
+                            <!-- Ground shadow -->
+                            <ellipse cx="300" cy="248" rx="225" ry="17"
+                                fill="#c7d1e2"/>
+
+                            <!-- Car body -->
+                            <path class="car-body-part"
+                                d="M75 195
+                                   L105 160
+                                   L165 145
+                                   L215 85
+                                   Q230 65 260 65
+                                   L365 65
+                                   Q395 65 415 100
+                                   L460 155
+                                   L510 168
+                                   Q535 175 540 205
+                                   L530 226
+                                   L70 226
+                                   L65 207
+                                   Q65 197 75 195Z"/>
+
+                            <!-- Upper body -->
+                            <path class="car-body-part"
+                                d="M190 145
+                                   L232 87
+                                   Q243 76 265 76
+                                   L355 76
+                                   Q380 76 398 110
+                                   L425 145Z"
+                                stroke="#ffffff"
+                                stroke-opacity=".15"
+                                stroke-width="3"/>
+
+                            <!-- Windows -->
+                            <path class="car-glass"
+                                d="M205 139 L240 91
+                                   Q248 84 264 84
+                                   L293 84 L293 139Z"/>
+
+                            <path class="car-glass"
+                                d="M305 84 L354 84
+                                   Q373 84 385 111
+                                   L406 139 L305 139Z"/>
+
+                            <!-- Window divider -->
+                            <path d="M299 81 L299 143"
+                                stroke="#ffffff"
+                                stroke-width="5"/>
+
+                            <!-- Door details -->
+                            <path d="M300 150 L300 215"
+                                stroke="#ffffff"
+                                stroke-opacity=".3"
+                                stroke-width="2"/>
+
+                            <path d="M330 169 L370 169"
+                                stroke="#ffffff"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                                opacity=".6"/>
+
+                            <!-- Headlight -->
+                            <path d="M475 169 L514 180 L509 193 L477 190Z"
+                                fill="#fff0a8"/>
+
+                            <!-- Rear light -->
+                            <path d="M82 178 L105 168 L101 192 L78 195Z"
+                                fill="#ff665f"/>
+
+                            <!-- Wheels -->
+                            <circle class="tyre-outer" id="wheel1"
+                                cx="174" cy="222" r="36"/>
+
+                            <circle class="tyre-outer" id="wheel2"
+                                cx="442" cy="222" r="36"/>
+
+                            <circle class="tyre-inner" id="rim1"
+                                cx="174" cy="222" r="19"/>
+
+                            <circle class="tyre-inner" id="rim2"
+                                cx="442" cy="222" r="19"/>
+
+                            <circle cx="174" cy="222" r="7" fill="#737e91"/>
+                            <circle cx="442" cy="222" r="7" fill="#737e91"/>
+
+                            <!-- Wheel lines -->
+                            <path d="M174 205 L174 239 M157 222 L191 222"
+                                stroke="#737e91" stroke-width="3"/>
+
+                            <path d="M442 205 L442 239 M425 222 L459 222"
+                                stroke="#737e91" stroke-width="3"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div class="car-preview-caption">
+                        LIVE VEHICLE PREVIEW / SIDE PROFILE
+                    </div>
+
+                </div>
+
+
+                <div class="car-controls">
+
+                    <div class="car-control-group">
+
+                        <h4>01 / BODY COLOUR</h4>
+
+                        <div class="color-options">
+
+                            <button class="color-swatch active"
+                                style="background:#244de8"
+                                data-color="#244de8"
+                                aria-label="Blue"></button>
+
+                            <button class="color-swatch"
+                                style="background:#e63e48"
+                                data-color="#e63e48"
+                                aria-label="Red"></button>
+
+                            <button class="color-swatch"
+                                style="background:#20242c"
+                                data-color="#20242c"
+                                aria-label="Black"></button>
+
+                            <button class="color-swatch"
+                                style="background:#e6e6e2"
+                                data-color="#e6e6e2"
+                                aria-label="White"></button>
+
+                            <button class="color-swatch"
+                                style="background:#24a878"
+                                data-color="#24a878"
+                                aria-label="Green"></button>
+
+                            <button class="color-swatch"
+                                style="background:#ed9a39"
+                                data-color="#ed9a39"
+                                aria-label="Orange"></button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="car-control-group">
+
+                        <h4>02 / GLASS TINT</h4>
+
+                        <div class="tint-options">
+
+                            <button class="tint-btn active"
+                                data-tint="#b9e6f3">
+                                CLEAR
+                            </button>
+
+                            <button class="tint-btn"
+                                data-tint="#7794a7">
+                                MEDIUM
+                            </button>
+
+                            <button class="tint-btn"
+                                data-tint="#25364d">
+                                DARK
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="car-control-group">
+
+                        <h4>03 / TYRE SIZE</h4>
+
+                        <div class="tint-options">
+
+                            <button class="tyre-btn active"
+                                data-size="30">
+                                STANDARD
+                            </button>
+
+                            <button class="tyre-btn"
+                                data-size="36">
+                                LARGE
+                            </button>
+
+                            <button class="tyre-btn"
+                                data-size="42">
+                                XL
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="car-summary">
+                        BODY: <strong id="bodySummary">Blue</strong><br>
+                        GLASS: <strong id="tintSummary">Clear</strong><br>
+                        TYRES: <strong id="tyreSummary">Standard</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <h2>FORM<span>&</span>FUNCTION.</h2>
+
+        <p>
+            EXPERIMENT 07<br>
+            WORKING WITH JQUERY<br>
+            HTML × CSS × JQUERY
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+// WAIT UNTIL THE DOCUMENT IS READY
+
+$(document).ready(function() {
+
+    // 1. BUDGET CALCULATOR
+
+    $("#evaluateBudget").click(function() {
+
+        let amount = parseFloat($("#totalAmount").val());
+
+        let rent = parseFloat($("#rentPercent").val());
+        let accessories = parseFloat($("#accessPercent").val());
+        let emergency = parseFloat($("#emergencyPercent").val());
+        let savings = parseFloat($("#savingPercent").val());
+
+        if (
+            !Number.isFinite(amount) || amount <= 0 ||
+            !Number.isFinite(rent) ||
+            !Number.isFinite(accessories) ||
+            !Number.isFinite(emergency) ||
+            !Number.isFinite(savings)
+        ) {
+            alert("Please enter a valid amount and all percentages.");
+            return;
+        }
+
+        if (
+            rent < 0 || accessories < 0 ||
+            emergency < 0 || savings < 0 ||
+            rent > 100 || accessories > 100 ||
+            emergency > 100 || savings > 100
+        ) {
+            alert("Percentages must be between 0 and 100.");
+            return;
+        }
+
+        let totalPercent = rent + accessories + emergency + savings;
+
+        if (Math.abs(totalPercent - 100) > 0.000001) {
+            alert("The total percentage must be exactly 100%.");
+            return;
+        }
+
+        let rentAmount = amount * rent / 100;
+        let accessoriesAmount = amount * accessories / 100;
+        let emergencyAmount = amount * emergency / 100;
+        let savingsAmount = amount * savings / 100;
+
+        $("#budgetTotal").text("₹" + amount.toFixed(2));
+
+        $("#budgetResults").html(
+            '<div class="result-item"><span>Room Rent (' + rent + '%)</span><strong>₹' + rentAmount.toFixed(2) + '</strong></div>' +
+            '<div class="result-item"><span>Accessories (' + accessories + '%)</span><strong>₹' + accessoriesAmount.toFixed(2) + '</strong></div>' +
+            '<div class="result-item"><span>Emergency (' + emergency + '%)</span><strong>₹' + emergencyAmount.toFixed(2) + '</strong></div>' +
+            '<div class="result-item"><span>Savings (' + savings + '%)</span><strong>₹' + savingsAmount.toFixed(2) + '</strong></div>'
+        );
+
+    });
+
+
+    // UPDATE PERCENTAGE LABELS
+
+    $("#rentPercent, #accessPercent, #emergencyPercent, #savingPercent").on("input", function() {
+
+        $("#rentLabel").text($("#rentPercent").val() + "%");
+        $("#accessLabel").text($("#accessPercent").val() + "%");
+        $("#emergencyLabel").text($("#emergencyPercent").val() + "%");
+        $("#savingLabel").text($("#savingPercent").val() + "%");
+
+    });
+
+
+    // 2. CAKE ORDER CALCULATOR
+
+    function calculateCakePrice() {
+
+        let size = parseFloat($("#cakeSize").val());
+        let flavor = parseFloat($("#cakeFlavor").val());
+        let quantity = parseInt($("#cakeQuantity").val());
+
+        if (
+            !Number.isFinite(size) ||
+            !Number.isFinite(flavor) ||
+            !Number.isFinite(quantity) ||
+            quantity < 1 || quantity > 20
+        ) {
+            $("#cakeTotal").text("Invalid quantity");
+            return;
+        }
+
+        let extra = 0;
+
+        $(".cakeExtra:checked").each(function() {
+            extra += parseFloat($(this).val());
+        });
+
+        let total = (size + flavor + extra) * quantity;
+
+        $("#cakeTotal").text("₹" + total.toFixed(2));
+
+    }
+
+
+    // RECALCULATE WHENEVER A VALUE CHANGES
+
+    $("#cakeSize, #cakeFlavor, #cakeQuantity, .cakeExtra").on("change input", function() {
+        calculateCakePrice();
+    });
+
+
+    // CONFIRM CAKE ORDER
+
+    $("#placeOrder").click(function() {
+
+        let quantity = parseInt($("#cakeQuantity").val());
+
+        if (!Number.isFinite(quantity) || quantity < 1 || quantity > 20) {
+            alert("Please enter a quantity between 1 and 20.");
+            return;
+        }
+
+        calculateCakePrice();
+
+        alert("Your cake order has been calculated!\nTotal: " + $("#cakeTotal").text());
+
+    });
+
+
+    // 3. CAR BODY COLOUR CHANGE
+
+    $(".color-swatch").click(function() {
+
+        let selectedColor = $(this).data("color");
+
+        $(".car-body-part").css("fill", selectedColor);
+
+        $(".color-swatch").removeClass("active");
+
+        $(this).addClass("active");
+
+        let colorNames = {
+            "#244de8": "Blue",
+            "#e63e48": "Red",
+            "#20242c": "Black",
+            "#e6e6e2": "White",
+            "#24a878": "Green",
+            "#ed9a39": "Orange"
+        };
+
+        $("#bodySummary").text(colorNames[selectedColor]);
+
+    });
+
+
+    // 4. GLASS TINT CHANGE
+
+    $(".tint-btn").click(function() {
+
+        let tint = $(this).data("tint");
+
+        $(".car-glass").css("fill", tint);
+
+        $(".tint-btn").removeClass("active");
+
+        $(this).addClass("active");
+
+        let tintNames = {
+            "#b9e6f3": "Clear",
+            "#7794a7": "Medium",
+            "#25364d": "Dark"
+        };
+
+        $("#tintSummary").text(tintNames[tint]);
+
+    });
+
+
+    // 5. TYRE SIZE CHANGE
+
+    $(".tyre-btn").click(function() {
+
+        let size = parseInt($(this).data("size"));
+
+        // Change wheel radius
+
+        $("#wheel1, #wheel2").attr("r", size);
+
+        // Adjust wheel position for larger tyres
+
+        $("#wheel1, #wheel2").attr("cy", 226 - (size - 30));
+
+        // Change inner rim size
+
+        $("#rim1, #rim2").attr("r", size * 0.53);
+
+        $(".tyre-btn").removeClass("active");
+
+        $(this).addClass("active");
+
+        let sizeNames = {
+            30: "Standard",
+            36: "Large",
+            42: "XL"
+        };
+
+        $("#tyreSummary").text(sizeNames[size]);
+
+    });
+
+
+    // INITIAL CAKE CALCULATION
+
+    calculateCakePrice();
+
+});
+</script>
+
+</body>
+</html>
